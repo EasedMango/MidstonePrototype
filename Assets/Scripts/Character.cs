@@ -28,7 +28,7 @@ public class Character : MonoBehaviour
         hor = Input.GetAxisRaw("Horizontal");
         jump = Input.GetKey(KeyCode.Space);
 
-        
+
 
     }
     void Movement()
@@ -63,10 +63,9 @@ public class Character : MonoBehaviour
         }
 
 
-        if (rb.velocity.magnitude < 5)
-        {
-            rb.velocity += Vector3.ClampMagnitude(fNet.normalized * speed, 10);
-        }
+
+        rb.velocity += Vector3.ClampMagnitude(fNet.normalized * speed, 10);
+
     }
     private void FixedUpdate()
     {
