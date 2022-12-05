@@ -10,6 +10,7 @@ public class Character : MonoBehaviour
     public float speed = 1;
     float vert, hor;
     bool jump;
+    bool down;
     public LayerMask mask;
     Vector3 origin;
 
@@ -27,7 +28,7 @@ public class Character : MonoBehaviour
         vert = Input.GetAxisRaw("Vertical");
         hor = Input.GetAxisRaw("Horizontal");
         jump = Input.GetKey(KeyCode.Space);
-
+        down = Input.GetKey(KeyCode.C);
 
 
     }
@@ -62,6 +63,10 @@ public class Character : MonoBehaviour
             fNet += transform.right;
         }
 
+        if (down)
+        {
+            fNet -= transform.up;
+        }
 
 
         rb.velocity += Vector3.ClampMagnitude(fNet.normalized * speed, 10);
@@ -72,45 +77,5 @@ public class Character : MonoBehaviour
         Movement();
     }
 
-    private void OnDrawGizmos()
-    {
 
-        //mesh.vertices = corners;
-        //  DrawMesh();
-        Vector3 headPos = transform.position;
-        Vector3 lookDir = transform.forward;
-
-
-
-
-        void DrawRayNormal(Vector3 pos, Vector3 dir) => Handles.DrawAAPolyLine(EditorGUIUtility.whiteTexture, 8f, pos, pos + dir);
-
-        void DrawRay(Vector3 pos, Vector3 dir) => Handles.DrawAAPolyLine(EditorGUIUtility.whiteTexture, 8f, pos, dir);
-        DrawRayNormal(origin, Vector3.down);
-        if (Physics.Raycast(headPos - (transform.up * 0.25f), Vector3.down, out RaycastHit hit, mask))
-        {
-
-
-            Vector3 hitPos = hit.point;
-            Vector3 up = hit.normal;
-            Vector3 right = Vector3.Cross(up, lookDir).normalized;
-            Vector3 forward = Vector3.Cross(right, up);
-            //  forward += up * 0.25f;
-
-            Handles.color = Color.green;
-            DrawRayNormal(transform.position, up);
-            Handles.color = Color.red;
-            DrawRayNormal(transform.position, right);
-            Handles.color = Color.cyan;
-            DrawRayNormal(transform.position, forward);
-
-
-        }
-        else
-        {
-            Handles.color = Color.red;
-            DrawRayNormal(headPos, lookDir);
-        }
-
-    }
 }

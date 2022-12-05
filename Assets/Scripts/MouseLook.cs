@@ -29,19 +29,28 @@ public class MouseLook : MonoBehaviour
     //public float minimumY = -60F;
     //public float maximumY = 60F;
 
-    float rotationY = 0F;
+    // rotationY = 0F;
 
 
 
     void Update()
     {
 
-        float rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensitivityX;
+        float rotationX = Input.GetAxis("Mouse X") * sensitivityX;
 
-        rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
+        float rotationY = Input.GetAxis("Mouse Y") * sensitivityY;
         //	rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
+        float rotationZ = 0;
+        if (Input.GetKey(KeyCode.Q))
+        {
+            rotationZ += 0.1f;
+        }
+        if (Input.GetKey(KeyCode.Q))
+        {
+            rotationZ += 0.1f;
+        }
 
-        transform.localEulerAngles = new Vector3(-rotationY, rotationX, 0);
+        transform.rotation *= Quaternion.AngleAxis(rotationX, Vector3.up) *Quaternion.AngleAxis(rotationY, Vector3.right);
 
 
 
