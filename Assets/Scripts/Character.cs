@@ -44,12 +44,12 @@ public class Character : MonoBehaviour
         if (vert > 0)
         {
 
-            fNet += transform.forward;
+            fNet -= transform.forward;
         }
         if (vert < 0)
         {
 
-            fNet -= transform.forward;
+            fNet += transform.forward;
         }
         if (hor > 0)
         {
@@ -62,7 +62,10 @@ public class Character : MonoBehaviour
 
             fNet += transform.right;
         }
-
+        if (jump)
+        {
+            fNet += transform.up;
+        }
         if (down)
         {
             fNet -= transform.up;

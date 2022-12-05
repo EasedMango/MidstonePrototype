@@ -43,14 +43,14 @@ public class MouseLook : MonoBehaviour
         float rotationZ = 0;
         if (Input.GetKey(KeyCode.Q))
         {
-            rotationZ += 0.1f;
+            rotationZ -= 0.1f;
         }
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKey(KeyCode.E))
         {
             rotationZ += 0.1f;
         }
 
-        transform.rotation *= Quaternion.AngleAxis(rotationX, Vector3.up) *Quaternion.AngleAxis(rotationY, Vector3.right);
+        transform.rotation *= Quaternion.AngleAxis(rotationX, Vector3.up) *Quaternion.AngleAxis(rotationY, Vector3.right) * Quaternion.AngleAxis(rotationZ, Vector3.forward);
 
 
 
