@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.SceneManagement;
+
 //[RequireComponent(typeof(Camera))]
 public class Character : MonoBehaviour
 {
@@ -14,11 +16,14 @@ public class Character : MonoBehaviour
     public LayerMask mask;
     Vector3 origin;
 
+    public float health;
+
     // Start is called before the first frame update
     void Start()
     {
-
         rb = GetComponent<Rigidbody>();
+
+        health = 50;
     }
 
     // Update is called once per frame
@@ -30,7 +35,11 @@ public class Character : MonoBehaviour
         jump = Input.GetKey(KeyCode.Space);
         down = Input.GetKey(KeyCode.C);
 
-
+        if(health <= 0)
+        {
+            Destroy(gameObject);
+            SceneManager.LoadScene(3);
+        }
     }
     void Movement()
     {
@@ -80,5 +89,21 @@ public class Character : MonoBehaviour
         Movement();
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag is "Missile")
+        {
+            TakeMissileDamage();
+        }
+    }
 
+    void TakeMissileDamage()
+    {
+        health -= 5;
+    }
+
+    void TakeAsteroidDamage()
+    {
+
+    }
 }
