@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 7403438057913382665}
   - component: {fileID: 6210523777613215037}
   m_Layer: 0
-  m_Name: SpaceShip
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -153,7 +153,9 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 2147483647
-  health: 0
+  maxHealth: 50
+  currentHealth: 0
+  healthBar: {fileID: 0}
 --- !u!114 &7403438057913382665
 MonoBehaviour:
   m_ObjectHideFlags: 0

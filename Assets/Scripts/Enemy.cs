@@ -25,6 +25,9 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        Player = GameObject.Find("Player");
+        SpaceStation = GameObject.Find("SpaceStation");
+
         speed = 2;
         health = 10;
 
