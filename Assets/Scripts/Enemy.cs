@@ -61,7 +61,12 @@ public class Enemy : MonoBehaviour
         if(distanceToPlayer <= playerDamageRange || distanceToStation <= stationDamageRange)
         {
             CheckToFire();
-        }          
+        }       
+        
+        if(health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void CheckToFire()
@@ -75,7 +80,11 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        TakeDamage();
+        if (other.tag is "PlayerMissile")
+        {
+            TakeDamage();
+        }
+        
     }
 
     void TakeDamage()

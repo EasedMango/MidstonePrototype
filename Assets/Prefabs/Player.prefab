@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 6210523777613215037}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -155,6 +155,9 @@ MonoBehaviour:
     m_Bits: 2147483647
   maxHealth: 50
   currentHealth: 0
+  PlayerMissile: {fileID: 0}
+  fireRate: 0
+  nextFire: 0
   healthBar: {fileID: 0}
 --- !u!114 &7403438057913382665
 MonoBehaviour:

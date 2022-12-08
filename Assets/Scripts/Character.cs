@@ -13,12 +13,17 @@ public class Character : MonoBehaviour
     float vert, hor;
     bool jump;
     bool down;
+    bool brake;
     public LayerMask mask;
     Vector3 origin;
 
     //public float health;
     public int maxHealth = 50;
     public int currentHealth;
+
+    public GameObject PlayerMissile;
+    public float fireRate;
+    public float nextFire;
 
     public HealthBar healthBar;
 
@@ -31,6 +36,9 @@ public class Character : MonoBehaviour
         currentHealth = maxHealth;
 
         healthBar.SetMaxHealth(maxHealth);
+
+        fireRate = 1;
+        nextFire = Time.time;
     }
 
     // Update is called once per frame
@@ -40,12 +48,18 @@ public class Character : MonoBehaviour
         vert = Input.GetAxisRaw("Vertical");
         hor = Input.GetAxisRaw("Horizontal");
         jump = Input.GetKey(KeyCode.Space);
-        down = Input.GetKey(KeyCode.C);
+        down = Input.GetKey(KeyCode.LeftControl);
+        brake = Input.GetKey(KeyCode.LeftShift);
 
         if(currentHealth <= 0)
         {
             Destroy(gameObject);
             SceneManager.LoadScene(3);
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            CheckToFire();
         }
     }
     void Movement()
@@ -59,23 +73,18 @@ public class Character : MonoBehaviour
         //  print(hor);
         if (vert > 0)
         {
-
             fNet -= transform.forward;
         }
         if (vert < 0)
         {
-
             fNet += transform.forward;
         }
         if (hor > 0)
         {
-
             fNet -= transform.right;
-
         }
         if (hor < 0)
         {
-
             fNet += transform.right;
         }
         if (jump)
@@ -85,6 +94,10 @@ public class Character : MonoBehaviour
         if (down)
         {
             fNet -= transform.up;
+        }
+        if (brake)
+        {
+            fNet = -rb.velocity;
         }
 
 
@@ -114,5 +127,14 @@ public class Character : MonoBehaviour
     void TakeAsteroidDamage()
     {
 
+    }
+
+    void CheckToFire()
+    {
+        if (Time.time > nextFire)
+        {
+            Instantiate(PlayerMissile, transform.position - (transform.forward * 2), Quaternion.identity);
+            nextFire = Time.time + fireRate;
+        }
     }
 }
