@@ -16,14 +16,21 @@ public class Character : MonoBehaviour
     public LayerMask mask;
     Vector3 origin;
 
-    public float health;
+    //public float health;
+    public int maxHealth = 50;
+    public int currentHealth;
+
+    public HealthBar healthBar;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
 
-        health = 50;
+        //health = 50;
+        currentHealth = maxHealth;
+
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     // Update is called once per frame
@@ -35,7 +42,7 @@ public class Character : MonoBehaviour
         jump = Input.GetKey(KeyCode.Space);
         down = Input.GetKey(KeyCode.C);
 
-        if(health <= 0)
+        if(currentHealth <= 0)
         {
             Destroy(gameObject);
             SceneManager.LoadScene(3);
@@ -99,7 +106,9 @@ public class Character : MonoBehaviour
 
     void TakeMissileDamage()
     {
-        health -= 5;
+       currentHealth -= 5;
+
+        healthBar.SetHealth(currentHealth);
     }
 
     void TakeAsteroidDamage()
