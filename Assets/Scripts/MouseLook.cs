@@ -49,7 +49,7 @@ public class MouseLook : MonoBehaviour
         {
             rotationZ += 0.1f;
         }
-
+ 
         transform.rotation *= Quaternion.AngleAxis(rotationX, Vector3.up) *Quaternion.AngleAxis(rotationY, Vector3.right) * Quaternion.AngleAxis(rotationZ, Vector3.forward);
 
 

@@ -65,6 +65,7 @@ public class Enemy : MonoBehaviour
         
         if(health <= 0)
         {
+            FindObjectOfType<AudioController>().Play("Explosion"); 
             Destroy(gameObject);
         }
     }

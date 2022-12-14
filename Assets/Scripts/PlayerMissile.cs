@@ -25,6 +25,10 @@ public class PlayerMissile : MonoBehaviour
         Destroy(gameObject, 5);
     }
 
+    private void Start()
+    {
+        FindObjectOfType<AudioController>().Play("Missile");
+    }
     // Update is called once per frame
     void Update()
     {
